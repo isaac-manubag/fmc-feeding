@@ -4,6 +4,7 @@ import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 import firebase from 'firebase';
 import SecuredLayout from './components/hoc/SecuredLayout';
 import AuthLayout from './components/hoc/AuthLayout';
+import constants from './utils/constants';
 
 const config = {
   apiKey: 'AIzaSyDPUL_kqpWE01g83wk2yK_ZvAXbTuClrU8',
@@ -18,6 +19,15 @@ const uiConfig = {
     firebase.auth.GoogleAuthProvider.PROVIDER_ID,
     firebase.auth.FacebookAuthProvider.PROVIDER_ID,
   ],
+  callbacks: {
+    signInSuccessWithAuthResult: (authResult, redirectUrl) => {
+      console.log(authResult);
+
+      localStorage.setItem(constants.localStorage.isAuth, true);
+
+      return true;
+    },
+  },
 };
 
 function Index() {

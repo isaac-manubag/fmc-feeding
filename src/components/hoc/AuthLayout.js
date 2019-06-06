@@ -13,7 +13,7 @@ const AuthLayout = ({ component: Component, ...rest }) => {
           <Component {...matchProps} />
         ) : (
           <Redirect
-            to={{ pathname: '/', state: { from: matchProps.location } }}
+            to={{ pathname: '/about', state: { from: matchProps.location } }}
           />
         )
       }
