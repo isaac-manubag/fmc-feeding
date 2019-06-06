@@ -1,7 +1,9 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 import firebase from 'firebase';
+import SecuredLayout from './components/hoc/SecuredLayout';
+import AuthLayout from './components/hoc/AuthLayout';
 
 const config = {
   apiKey: 'AIzaSyDPUL_kqpWE01g83wk2yK_ZvAXbTuClrU8',
@@ -38,25 +40,11 @@ function Users() {
 function App() {
   return (
     <Router>
-      <div>
-        <nav>
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/about/">About</Link>
-            </li>
-            <li>
-              <Link to="/users/">Users</Link>
-            </li>
-          </ul>
-        </nav>
-
-        <Route path="/" exact component={Index} />
-        <Route path="/about/" component={About} />
-        <Route path="/users/" component={Users} />
-      </div>
+      <>
+        <SecuredLayout path="/about" exact component={About} />
+        <SecuredLayout path="/users" exact component={Users} />
+        <AuthLayout path="/" exact component={Index} />
+      </>
     </Router>
   );
 }
