@@ -1,9 +1,9 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { logout } from '../../redux/actions/auth';
+import firebase from 'firebase';
 
 const Nav = styled.nav`
   background: #373744;
@@ -35,31 +35,48 @@ const StyledLink = styled(Link)`
   }
 `;
 
+const Logout = styled.p`
+  color: white;
+  font-weight: bold;
+  margin-right: 20px;
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
 const config = [
   { to: '/', name: 'Home' },
   { to: '/page1', name: 'Page1' },
   { to: '/page2', name: 'Page2' },
 ];
 
-class Header extends React.Component {
-  render() {
-    return (
-      <Nav>
-        <UnorderList>
-          {config.map(item => (
-            <ListItem key={item.name}>
-              <StyledLink to={item.to}>{item.name}</StyledLink>
-            </ListItem>
-          ))}
-        </UnorderList>
-      </Nav>
-    );
-  }
-}
-
-Header.propTypes = {
-  client: PropTypes.object,
-  logout: PropTypes.func,
+const Header = ({ logout }) => {
+  const doLogout = () => {
+    firebase
+      .auth()
+      .signOut()
+      .then(
+        () => {
+          logout();
+          window.location.reload();
+        },
+        error => {
+          console.error('Sign Out Error', error);
+        },
+      );
+  };
+  return (
+    <Nav>
+      <UnorderList>
+        {config.map(item => (
+          <ListItem key={item.name}>
+            <StyledLink to={item.to}>{item.name}</StyledLink>
+          </ListItem>
+        ))}
+      </UnorderList>
+      <Logout onClick={doLogout}>LOG OUT</Logout>
+    </Nav>
+  );
 };
 
 const mapDispatchToProps = {

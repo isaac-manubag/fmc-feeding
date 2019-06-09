@@ -1,12 +1,12 @@
 // react dotenv version 1551921186
 import constants from '../../utils/constants';
 
-export const userLoginFlow = ({ dispatch }) => next => action => {
-  next(action);
-
-  if (action.type === constants.auth.LOGIN_REQUEST) {
-  } else if (action.type === constants.auth.LOGIN_ERROR) {
+export const userLogoutFlow = ({ dispatch }) => next => action => {
+  if (action.type === constants.auth.LOGGED_OUT) {
+    alert('sac');
+    localStorage.removeItem(constants.localStorage.isAuth);
   }
+  next(action);
 };
 
-export const authMiddleware = [userLoginFlow];
+export const authMiddleware = [userLogoutFlow];

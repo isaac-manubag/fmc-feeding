@@ -11,33 +11,9 @@ const FooterContainer = styled.div`
   text-align: center;
 `;
 
-const PoweredByFishbulb = styled.a`
-  color: #007bff;
-  text-decoration: none;
-  background-color: transparent;
-`;
-
-const PoweredByFishbulbText = styled.span`
-  margin: 0;
-  line-height: 23px;
-  vertical-align: middle;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 12px;
-  font-weight: bold;
-  color: #fff;
-`;
-
-const FBLogo = styled.img`
-  margin-left: 0.75rem;
-  vertical-align: middle;
-`;
-
 const Footer = () => (
   <FooterContainer>
-    <PoweredByFishbulb href="https://www.fishbulb.com.au">
-      <PoweredByFishbulbText>Powered By Fishbulb</PoweredByFishbulbText>
-      <FBLogo src="http://dev.ets.com/images/fishbulb-footer-logo.png" alt="" />
-    </PoweredByFishbulb>
+    <h4>This is the footer</h4>
   </FooterContainer>
 );
 
