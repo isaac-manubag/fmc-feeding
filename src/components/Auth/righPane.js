@@ -4,12 +4,6 @@ import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 import firebase from 'firebase';
 import constants from '../../utils/constants.js';
 
-const config = {
-  apiKey: 'AIzaSyDPUL_kqpWE01g83wk2yK_ZvAXbTuClrU8',
-  authDomain: 'fmc-cebu-feeding.firebaseapp.com',
-};
-firebase.initializeApp(config);
-
 const RightPane = styled.div`
   background-color: #fbfbfb;
   flex: 1;
@@ -40,8 +34,6 @@ class Pane extends React.Component {
   };
 
   render() {
-    console.log(firebase.auth().currentUser);
-
     return (
       <RightPane>
         <HeaderContainer>
