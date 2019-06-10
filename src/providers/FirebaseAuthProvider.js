@@ -25,7 +25,7 @@ class FirebaseAuthProvider extends React.Component {
     const { authStatusReported, isUserSignedIn } = this.state;
 
     if (!authStatusReported) {
-      return <SVG src="/assets/svg/pacman.svg" alt="pacman loader" />;
+      return <SVG src="/assets/svg/ripple-lg.svg" alt="pacman loader" />;
     }
 
     return (
