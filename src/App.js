@@ -5,15 +5,8 @@ import DashboardLayout from './components/hoc/DashboardLayout';
 import AuthLayout from './components/hoc/AuthLayout';
 import Login from './components/Auth';
 import Kids from './components/Dashboard/Kids';
-
 import FirebaseAuthProvider from './providers/FirebaseAuthProvider';
-import firebase from 'firebase';
 
-const config = {
-  apiKey: 'AIzaSyDPUL_kqpWE01g83wk2yK_ZvAXbTuClrU8',
-  authDomain: 'fmc-cebu-feeding.firebaseapp.com',
-};
-firebase.initializeApp(config);
 
 function About() {
   return <h2>About</h2>;

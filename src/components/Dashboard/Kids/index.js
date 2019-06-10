@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
@@ -10,6 +10,8 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Fab from '@material-ui/core/Fab';
 import Add from '@material-ui/icons/Add';
+import firebase from '../../../utils/firebase';
+import 'firebase/firestore';
 
 const useStyles = makeStyles(theme => ({
     card: {
@@ -23,10 +25,10 @@ const useStyles = makeStyles(theme => ({
         right: 40,
         bottom: 20,
         position: 'fixed',
-      }
+    }
 }));
 
-const kids = [
+const kids2 = [
     {
         fullName: 'Enmanuel Miranda Espino',
         nickName: 'Pino',
@@ -89,47 +91,85 @@ const kids = [
     },
 ];
 
+
+const db = firebase.firestore();
+
+const addKid = () => {
+    db.collection("users").add({
+        fullName: 'Enmanuel Miranda Espino',
+        nickName: 'Pino',
+        age: 12,
+        bio: 'Reader. Award-winning coffee geek. Social media junkie. Creator. Unapologetic twitter expert.'
+    })
+        .then(function (docRef) {
+            console.log("Document written with ID: ", docRef.id);
+        })
+        .catch(function (error) {
+            console.error("Error adding document: ", error);
+        });
+}
+
 export default function Kids() {
     const classes = useStyles();
+    const [kids, setKids] = useState([]);
+
+    useEffect(() => {
+        db.collection("users").get().then((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+                setKids([
+                    ...kids,
+                    {
+                        fullName: doc.fullName,
+                        nickName: doc.nickName,
+                        age: doc.age,
+                        bio: doc.bio
+                    }
+                  ]);
+                console.log(JSON.stringify(doc.data()))
+                console.log(`${doc.id} => ${doc.data()}`);
+            });
+        });
+    });
+
 
     return (
         <>
-        <Grid container spacing={3}>
-            {kids && kids.map(item => {
-                return (
-                    <Grid item xs={12} sm={6} md={4} lg={3}>
-                        <Card className={classes.card}>
-                            <CardActionArea>
-                                <CardMedia
-                                    className={classes.media}
-                                    image="/assets/images/child.jpg"
-                                    title="kid"
-                                />
-                                <CardContent>
-                                    <Typography gutterBottom variant="h5" component="h2">
-                                        {item.nickName}
+            <Grid container spacing={3}>
+                {kids && kids.map(item => {
+                    return (
+                        <Grid item xs={12} sm={6} md={4} lg={3}>
+                            <Card className={classes.card}>
+                                <CardActionArea>
+                                    <CardMedia
+                                        className={classes.media}
+                                        image="/assets/images/child.jpg"
+                                        title="kid"
+                                    />
+                                    <CardContent>
+                                        <Typography gutterBottom variant="h5" component="h2">
+                                            {item.nickName}
+                                        </Typography>
+                                        <Typography variant="body2" color="textSecondary" component="p">
+                                            Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
+                                            across all continents except Antarctica
                                     </Typography>
-                                    <Typography variant="body2" color="textSecondary" component="p">
-                                        Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
-                                        across all continents except Antarctica
-                                    </Typography>
-                                </CardContent>
-                            </CardActionArea>
-                            <CardActions>
-                                <Button size="small" color="primary">
-                                    Share
+                                    </CardContent>
+                                </CardActionArea>
+                                <CardActions>
+                                    <Button size="small" color="primary">
+                                        Share
                                 </Button>
-                                <Button size="small" color="primary">
-                                    Learn More
+                                    <Button size="small" color="primary">
+                                        Learn More
                                 </Button>
-                            </CardActions>
-                        </Card>
-                    </Grid>
-                )
-            })}
-            
-        </Grid>
-        <Fab className={classes.fab} color='primary'><Add/></Fab>
+                                </CardActions>
+                            </Card>
+                        </Grid>
+                    )
+                })}
+
+            </Grid>
+            <Fab className={classes.fab} color='primary' onClick={addKid}><Add /></Fab>
         </>
     );
 }

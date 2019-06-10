@@ -1,6 +1,6 @@
 import React from 'react';
 import FirebaseAuthContext from '../contexts/FirebaseAuthContext';
-import firebase from 'firebase';
+import firebase from '../utils/firebase';
 import styled from 'styled-components';
 
 const defaultFirebaseContext = {
