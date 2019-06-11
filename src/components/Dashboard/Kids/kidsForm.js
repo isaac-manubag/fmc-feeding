@@ -8,27 +8,37 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import firebase from '../../../utils/firebase';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import FileUploader from "react-firebase-file-uploader";
+import KidsCard from './kidsCard';
+import { makeStyles } from '@material-ui/core/styles';
+import { flexbox } from '@material-ui/system';
+
+const useStyles = makeStyles(theme => ({
+    dFlexRow: {
+        display: 'flex',
+        flexDirection: 'row'
+    },
+    flex1: {
+        flex: 1
+    }
+  }));
 
 export default function ({ open, onClose }) {
     const [isUploading, setUploading] = useState(false);
     const [progress, setProgress] = useState(0);
     const [avatar, setAvatar] = useState('');
-    const fullName = React.createRef();
-    const nickName = React.createRef();
-    const age = React.createRef();
-    const bio = React.createRef();
+    const [fullName, setFullName] = useState('');
+    const [nickName, setNickName] = useState('');
+    const [age, setAge] = useState('');
+    const [bio, setBio] = useState('');
     const db = firebase.firestore();
 
     const save = () => {
-        console.log('sac')
-        console.log('fullNameREf', fullName.current.value)
-
         db.collection('kids')
             .add({
-                fullName: fullName.current.value,
-                nickName: nickName.current.value,
-                age: age.current.value,
-                bio: bio.current.value,
+                fullName: fullName,
+                nickName: nickName,
+                age: age,
+                bio: bio,
                 image: avatar,
             })
             .then(function (docRef) {
@@ -53,13 +63,6 @@ export default function ({ open, onClose }) {
     const handleUploadSuccess = filename => {
         setProgress(100);
         setUploading(false);
-
-        console.table({
-            isUploading,
-            progress,
-            avatar
-        })
-
         firebase
           .storage()
           .ref("images")
@@ -67,71 +70,74 @@ export default function ({ open, onClose }) {
           .getDownloadURL()
           .then(url => {
             setAvatar(url);
-
           });
       };
-    
+      const classes = useStyles();
     
 
     return (
-        <div>
-            <Dialog open={open} onClose={onClose} aria-labelledby="form-dialog-title">
-                <DialogTitle id="form-dialog-title">Add Kid</DialogTitle>
-                <DialogContent>
-                    <TextField
-                        inputRef={fullName}
-                        autoFocus
-                        margin="dense"
-                        label="Full Name"
-                        type="text"
-                        fullWidth
-                    />
-                    <TextField
-                        inputRef={nickName}
-                        autoFocus
-                        margin="dense"
-                        label="Nick Name"
-                        type="text"
-                        fullWidth
-                    />
-                    <TextField
-                        inputRef={age}
-                        autoFocus
-                        margin="dense"
-                        id="age"
-                        label="Age"
-                        type="number"
-                        fullWidth
-                    />
-                    <TextField
-                        inputRef={bio}
-                        autoFocus
-                        margin="dense"
-                        id="bio"
-                        label="Bio"
-                        type="text"
-                        fullWidth
-                    />
-                    <FileUploader
-                        accept="image/*"
-                        name="avatar"
-                        randomizeFilename
-                        storageRef={firebase.storage().ref("images")}
-                        onUploadStart={handleUploadStart}
-                        onUploadError={handleUploadError}
-                        onUploadSuccess={handleUploadSuccess}
-                        onProgress={handleProgress}
-                    />
-                    {isUploading && <LinearProgress variant="determinate" value={progress} />}
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={onClose} color="secondary">
-                        Cancel
-                    </Button>
-                    <Button onClick={save} color="primary">
-                        Save
-                    </Button>
-                </DialogActions>
+        <div >
+            <Dialog  open={open} onClose={onClose} aria-labelledby="form-dialog-title">
+                <div className={classes.dFlexRow}>
+                    <section className={classes.flex1}>
+                        <KidsCard kid={{fullName, nickName, age, bio, image: avatar}} preview/>
+                    </section>
+                    <section className={classes.flex1}>
+                        <DialogTitle id="form-dialog-title">Add Kid</DialogTitle>
+                        <DialogContent>
+                            <TextField
+                                autoFocus
+                                margin="dense"
+                                label="Full Name"
+                                type="text"
+                                fullWidth
+                                onChange={(event) => setFullName(event.target.value)}
+                            />
+                            <TextField
+                                margin="dense"
+                                label="Nick Name"
+                                type="text"
+                                fullWidth
+                                onChange={(event) => setNickName(event.target.value)}
+                            />
+                            <TextField
+                                margin="dense"
+                                id="age"
+                                label="Age"
+                                type="number"
+                                fullWidth
+                                onChange={(event) => setAge(event.target.value)}
+                            />
+                            <TextField
+                                margin="dense"
+                                id="bio"
+                                label="Bio"
+                                type="text"
+                                fullWidth
+                                onChange={(event) => setBio(event.target.value)}
+                            />
+                            <FileUploader
+                                accept="image/*"
+                                name="avatar"
+                                randomizeFilename
+                                storageRef={firebase.storage().ref("images")}
+                                onUploadStart={handleUploadStart}
+                                onUploadError={handleUploadError}
+                                onUploadSuccess={handleUploadSuccess}
+                                onProgress={handleProgress}
+                            />
+                            {isUploading && <LinearProgress variant="determinate" value={progress} />}
+                        </DialogContent>
+                        <DialogActions>
+                            <Button onClick={onClose} color="secondary">
+                                Cancel
+                            </Button>
+                            <Button onClick={save} color="primary">
+                                Save
+                            </Button>
+                        </DialogActions>
+                    </section>
+                </div>
             </Dialog>
         </div>
     );

@@ -13,14 +13,18 @@ const useStyles = makeStyles(theme => ({
   media: {
     height: 140,
   },
+  previewMode: {
+    flex: 1,
+    margin: '1rem'
+  }
 }));
 
-export default function({ kid, deleteKid }) {
+export default function({ kid, deleteKid, preview }) {
   const classes = useStyles();
   return (
-    <Card className={classes.card}>
+    <Card className={classes.card + ' ' + (preview ? classes.previewMode : '')}>
       <CardActionArea>
-        <CardMedia className={classes.media} image={kid.image} title="kid" />
+        <CardMedia className={classes.media} image={kid.image || "https://cdn-images-1.medium.com/max/1800/1*l9eqA179Bw1QoMA8iwBvHw.png"} title="kid" />
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
             {kid.nickName}
