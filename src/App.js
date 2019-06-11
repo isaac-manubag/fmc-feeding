@@ -6,6 +6,18 @@ import AuthLayout from './components/hoc/AuthLayout';
 import Login from './components/Auth';
 import Kids from './components/Dashboard/Kids';
 import FirebaseAuthProvider from './providers/FirebaseAuthProvider';
+import MuiThemeProvider from "@material-ui/core/styles/MuiThemeProvider";
+import { createMuiTheme } from "@material-ui/core/styles";
+
+const theme = createMuiTheme({
+  typography: {
+    // Use the system font instead of the default Roboto font.
+    fontFamily: [
+      'Quicksand',
+      'sans-serif',
+    ].join(','),
+  },
+});
 
 
 function About() {
@@ -19,6 +31,7 @@ function Users() {
 class App extends React.Component {
   render() {
     return (
+      <MuiThemeProvider theme={theme}>
       <FirebaseAuthProvider>
           <Router>
             <>
@@ -29,6 +42,7 @@ class App extends React.Component {
             </>
           </Router>
       </FirebaseAuthProvider>
+      </MuiThemeProvider>
     );
   }
 }

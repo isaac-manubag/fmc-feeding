@@ -15,9 +15,8 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function({ kid }) {
+export default function({ kid, deleteKid }) {
   const classes = useStyles();
-  console.log(kid);
   return (
     <Card className={classes.card}>
       <CardActionArea>
@@ -26,6 +25,9 @@ export default function({ kid }) {
           <Typography gutterBottom variant="h5" component="h2">
             {kid.nickName}
           </Typography>
+          <Typography variant="body2" color="textPrimary" component="p">
+            {kid.fullName}
+          </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
             {kid.bio}
           </Typography>
@@ -33,10 +35,10 @@ export default function({ kid }) {
       </CardActionArea>
       <CardActions>
         <Button size="small" color="primary">
-          Share
-        </Button>
-        <Button size="small" color="primary">
           Learn More
+        </Button>
+        <Button size="small" color="default" onClick={() => deleteKid(kid.id)}>
+          Delete
         </Button>
       </CardActions>
     </Card>
