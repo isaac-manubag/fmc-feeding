@@ -1,11 +1,11 @@
-import constants from '../../utils/constants';
+import constants from "../../utils/constants";
 
 export const loggedIn = () => ({
-  type: constants.auth.LOGIN_SUCCESS,
+  type: constants.auth.LOGIN_SUCCESS
 });
 
 export const logout = () => ({
-  type: constants.auth.LOGGED_OUT,
+  type: constants.auth.LOGGED_OUT
 });
 
 // export const login = (username, password, handleSuccess, handleError) => ({

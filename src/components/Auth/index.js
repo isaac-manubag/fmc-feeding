@@ -1,7 +1,7 @@
-import React from 'react';
-import styled from 'styled-components';
-import RightPane from './righPane';
-import LeftPane from './leftPane';
+import React from "react";
+import styled from "styled-components";
+import RightPane from "./righPane";
+import LeftPane from "./leftPane";
 
 const Container = styled.div`
   display: flex;

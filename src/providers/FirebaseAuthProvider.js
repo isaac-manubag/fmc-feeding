@@ -1,11 +1,11 @@
-import React from 'react';
-import FirebaseAuthContext from '../contexts/FirebaseAuthContext';
-import firebase from '../utils/firebase';
-import styled from 'styled-components';
+import React from "react";
+import FirebaseAuthContext from "../contexts/FirebaseAuthContext";
+import firebase from "../utils/firebase";
+import styled from "styled-components";
 
 const defaultFirebaseContext = {
   authStatusReported: false,
-  isUserSignedIn: false,
+  isUserSignedIn: false
 };
 
 class FirebaseAuthProvider extends React.Component {
@@ -15,8 +15,8 @@ class FirebaseAuthProvider extends React.Component {
     firebase.auth().onAuthStateChanged(user =>
       this.setState({
         authStatusReported: true,
-        isUserSignedIn: !!user,
-      }),
+        isUserSignedIn: !!user
+      })
     );
   }
 

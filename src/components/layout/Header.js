@@ -1,9 +1,9 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
-import styled from 'styled-components';
-import { logout } from '../../redux/actions/auth';
-import firebase from 'firebase';
+import React from "react";
+import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import styled from "styled-components";
+import { logout } from "../../redux/actions/auth";
+import firebase from "firebase";
 
 const Nav = styled.nav`
   background: #373744;
@@ -45,9 +45,9 @@ const Logout = styled.p`
 `;
 
 const config = [
-  { to: '/', name: 'Home' },
-  { to: '/page1', name: 'Page1' },
-  { to: '/page2', name: 'Page2' },
+  { to: "/", name: "Home" },
+  { to: "/page1", name: "Page1" },
+  { to: "/page2", name: "Page2" }
 ];
 
 const Header = ({ logout }) => {
@@ -61,8 +61,8 @@ const Header = ({ logout }) => {
           window.location.reload();
         },
         error => {
-          console.error('Sign Out Error', error);
-        },
+          console.error("Sign Out Error", error);
+        }
       );
   };
   return (
@@ -80,10 +80,10 @@ const Header = ({ logout }) => {
 };
 
 const mapDispatchToProps = {
-  logout,
+  logout
 };
 
 export default connect(
   null,
-  mapDispatchToProps,
+  mapDispatchToProps
 )(Header);

@@ -1,13 +1,13 @@
-const app = '[app]';
-const auth = '[auth]';
-const profile = '[profile]';
+const app = "[app]";
+const auth = "[auth]";
+const profile = "[profile]";
 
 export default {
   app: {
-    API_REQUEST: `${app} API Request`,
+    API_REQUEST: `${app} API Request`
   },
   localStorage: {
-    isAuth: `${auth}_is_logged_in`,
+    isAuth: `${auth}_is_logged_in`
   },
   auth: {
     LOGIN_REQUEST: `${auth} LOGIN_REQUEST`,
@@ -16,13 +16,13 @@ export default {
     LOGOUT: `${auth} LOGOUT`,
     LOGGING_OUT: `${auth} LOGGING_OUT`,
     LOGGED_OUT: `${auth} LOGGED_OUT`,
-    TOGGLE_AUTHENTICATING: `${auth} TOGGLE_AUTHENTICATING`,
+    TOGGLE_AUTHENTICATING: `${auth} TOGGLE_AUTHENTICATING`
   },
   user: {
     SET_PROFILE: `${profile} SET_PROFILE`,
     PROFILE_REQUEST: `${profile} PROFILE_REQUEST`,
     PROFILE_SUCCESS: `${profile} PROFILE_SUCCESS`,
     PROFILE_ERROR: `${profile} PROFILE_ERROR`,
-    TOGGLE_UPDATING: `${profile} TOGGLE_UPDATING`,
-  },
+    TOGGLE_UPDATING: `${profile} TOGGLE_UPDATING`
+  }
 };

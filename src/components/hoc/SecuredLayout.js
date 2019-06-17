@@ -1,9 +1,9 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Route, Redirect } from 'react-router-dom';
-import Header from '../layout/Header';
-import Footer from '../layout/Footer';
-import constants from '../../utils/constants';
+import React from "react";
+import PropTypes from "prop-types";
+import { Route, Redirect } from "react-router-dom";
+import Header from "../layout/Header";
+import Footer from "../layout/Footer";
+import constants from "../../utils/constants";
 
 const SecuredLayout = ({ component: Component, ...rest }) => {
   const isAuthenticated = localStorage.getItem(constants.localStorage.isAuth);
@@ -19,7 +19,7 @@ const SecuredLayout = ({ component: Component, ...rest }) => {
           </div>
         ) : (
           <Redirect
-            to={{ pathname: '/', state: { from: matchProps.location } }}
+            to={{ pathname: "/", state: { from: matchProps.location } }}
           />
         )
       }
@@ -28,9 +28,9 @@ const SecuredLayout = ({ component: Component, ...rest }) => {
 };
 
 SecuredLayout.propTypes = {
-  component: PropTypes.any.isRequired,
+  component: PropTypes.any.isRequired
 };
 
-SecuredLayout.displayName = 'SecuredLayoutComponent';
+SecuredLayout.displayName = "SecuredLayoutComponent";
 
 export default SecuredLayout;

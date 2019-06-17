@@ -1,7 +1,7 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Route, Redirect } from 'react-router-dom';
-import constants from '../../utils/constants';
+import React from "react";
+import PropTypes from "prop-types";
+import { Route, Redirect } from "react-router-dom";
+import constants from "../../utils/constants";
 
 const AuthLayout = ({ component: Component, ...rest }) => {
   const isAuthenticated = localStorage.getItem(constants.localStorage.isAuth);
@@ -13,7 +13,7 @@ const AuthLayout = ({ component: Component, ...rest }) => {
           <Component {...matchProps} />
         ) : (
           <Redirect
-            to={{ pathname: '/kids', state: { from: matchProps.location } }}
+            to={{ pathname: "/kids", state: { from: matchProps.location } }}
           />
         )
       }
@@ -22,9 +22,9 @@ const AuthLayout = ({ component: Component, ...rest }) => {
 };
 
 AuthLayout.propTypes = {
-  component: PropTypes.any.isRequired,
+  component: PropTypes.any.isRequired
 };
 
-AuthLayout.displayName = 'AuthLayoutComponent';
+AuthLayout.displayName = "AuthLayoutComponent";
 
 export default AuthLayout;

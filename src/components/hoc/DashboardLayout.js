@@ -1,8 +1,8 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Route, Redirect } from 'react-router-dom';
-import constants from '../../utils/constants';
-import Dashboard from '../Dashboard';
+import React from "react";
+import PropTypes from "prop-types";
+import { Route, Redirect } from "react-router-dom";
+import constants from "../../utils/constants";
+import Dashboard from "../Dashboard";
 
 const DashboardLayout = ({ component: Component, ...rest }) => {
   const isAuthenticated = localStorage.getItem(constants.localStorage.isAuth);
@@ -15,7 +15,7 @@ const DashboardLayout = ({ component: Component, ...rest }) => {
           <Dashboard component={Component} />
         ) : (
           <Redirect
-            to={{ pathname: '/', state: { from: matchProps.location } }}
+            to={{ pathname: "/", state: { from: matchProps.location } }}
           />
         )
       }
@@ -24,9 +24,9 @@ const DashboardLayout = ({ component: Component, ...rest }) => {
 };
 
 DashboardLayout.propTypes = {
-  component: PropTypes.any.isRequired,
+  component: PropTypes.any.isRequired
 };
 
-DashboardLayout.displayName = 'DashboardLayoutComponent';
+DashboardLayout.displayName = "DashboardLayoutComponent";
 
 export default DashboardLayout;

@@ -1,8 +1,8 @@
-import React from 'react';
-import styled from 'styled-components';
-import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
-import firebase from 'firebase';
-import constants from '../../utils/constants.js';
+import React from "react";
+import styled from "styled-components";
+import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
+import firebase from "firebase";
+import constants from "../../utils/constants.js";
 
 const RightPane = styled.div`
   background-color: #fbfbfb;
@@ -18,19 +18,19 @@ const HeaderContainer = styled.div`
 
 class Pane extends React.Component {
   uiConfig = {
-    signInFlow: 'popup',
-    signInSuccessUrl: '/about',
+    signInFlow: "popup",
+    signInSuccessUrl: "/about",
     signInOptions: [
       firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-      firebase.auth.FacebookAuthProvider.PROVIDER_ID,
+      firebase.auth.FacebookAuthProvider.PROVIDER_ID
     ],
     callbacks: {
       signInSuccessWithAuthResult: authResult => {
         console.log(authResult);
         localStorage.setItem(constants.localStorage.isAuth, true);
         return true;
-      },
-    },
+      }
+    }
   };
 
   render() {

@@ -1,24 +1,19 @@
-import React from 'react';
-import { BrowserRouter as Router } from 'react-router-dom';
-import SecuredLayout from './components/hoc/SecuredLayout';
-import DashboardLayout from './components/hoc/DashboardLayout';
-import AuthLayout from './components/hoc/AuthLayout';
-import Login from './components/Auth';
-import Kids from './components/Dashboard/Kids';
-import FirebaseAuthProvider from './providers/FirebaseAuthProvider';
+import React from "react";
+import { BrowserRouter as Router } from "react-router-dom";
+import SecuredLayout from "./components/hoc/SecuredLayout";
+import DashboardLayout from "./components/hoc/DashboardLayout";
+import AuthLayout from "./components/hoc/AuthLayout";
+import Login from "./components/Auth";
+import Kids from "./components/Dashboard/Kids";
+import FirebaseAuthProvider from "./providers/FirebaseAuthProvider";
 import MuiThemeProvider from "@material-ui/core/styles/MuiThemeProvider";
 import { createMuiTheme } from "@material-ui/core/styles";
 
 const theme = createMuiTheme({
   typography: {
-    // Use the system font instead of the default Roboto font.
-    fontFamily: [
-      'Quicksand',
-      'sans-serif',
-    ].join(','),
-  },
+    fontFamily: ["Quicksand", "sans-serif"].join(",")
+  }
 });
-
 
 function About() {
   return <h2>About</h2>;
@@ -32,7 +27,7 @@ class App extends React.Component {
   render() {
     return (
       <MuiThemeProvider theme={theme}>
-      <FirebaseAuthProvider>
+        <FirebaseAuthProvider>
           <Router>
             <>
               <SecuredLayout path="/about" exact component={About} />
@@ -41,7 +36,7 @@ class App extends React.Component {
               <AuthLayout path="/" exact component={Login} />
             </>
           </Router>
-      </FirebaseAuthProvider>
+        </FirebaseAuthProvider>
       </MuiThemeProvider>
     );
   }

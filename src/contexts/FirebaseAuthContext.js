@@ -1,8 +1,8 @@
-import React from 'react';
+import React from "react";
 
 const defaultFirebaseContext = {
   authStatusReported: false,
-  isUserSignedIn: false,
+  isUserSignedIn: false
 };
 
 const FirebaseAuthContext = React.createContext(defaultFirebaseContext);
