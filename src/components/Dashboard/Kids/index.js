@@ -1,18 +1,19 @@
 import React from "react";
 import Grid from "@material-ui/core/Grid";
+import styled from "styled-components";
 import KidsCard from "./kidsCard";
 import KidsForm from "./kidsForm";
 import FAB from "./fab";
 import firebase from "../../../utils/firebase";
 import "firebase/firestore";
-import styled from "styled-components";
 
 const db = firebase.firestore();
 
 class Kids extends React.Component {
   state = {
     kids: [],
-    formOpen: false
+    formOpen: false,
+    deleting: false
   };
 
   componentDidMount() {
@@ -48,26 +49,29 @@ class Kids extends React.Component {
   };
 
   deleteKid = documentID => {
-    db.collection("kids")
-      .doc(documentID)
-      .delete();
+    this.setState({
+      formOpen: true,
+      deleting: documentID
+    });
   };
 
   closeModal = () => {
     this.setState({
-      formOpen: false
+      formOpen: false,
+      deleting: false
     });
   };
 
   openModal = () => {
     this.setState({
-      formOpen: true
+      formOpen: true,
+      deleting: false
     });
   };
 
   render() {
-    const { kids } = this.state;
-
+    const { kids, deleting } = this.state;
+    console.log("sac");
     return (
       <React.Fragment>
         <Grid container spacing={3}>
@@ -79,9 +83,15 @@ class Kids extends React.Component {
                 </Grid>
               );
             })}
-          {!kids.length && <SVG src="../../../../assets/svg/ripple-lg.svg" alt="loader" />}
+          {!kids.length && (
+            <SVG src="../../../../assets/svg/ripple-lg.svg" alt="loader" />
+          )}
         </Grid>
-        <KidsForm open={this.state.formOpen} onClose={this.closeModal} />
+        <KidsForm
+          open={this.state.formOpen}
+          onClose={this.closeModal}
+          deleting={deleting}
+        />
         <FAB add={this.addKid} />
       </React.Fragment>
     );

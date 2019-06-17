@@ -48,9 +48,15 @@ export default function({ kid, deleteKid, preview }) {
         <Button size="small" color="primary">
           Learn More
         </Button>
-        <Button size="small" color="default" onClick={() => deleteKid(kid.id)}>
-          Delete
-        </Button>
+        {!preview && (
+          <Button
+            size="small"
+            color="default"
+            onClick={() => deleteKid(kid.id)}
+          >
+            Delete
+          </Button>
+        )}
       </CardActions>
     </Card>
   );
