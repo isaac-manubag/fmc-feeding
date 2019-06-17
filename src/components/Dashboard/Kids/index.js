@@ -5,6 +5,7 @@ import KidsForm from "./kidsForm";
 import FAB from "./fab";
 import firebase from "../../../utils/firebase";
 import "firebase/firestore";
+import styled from "styled-components";
 
 const db = firebase.firestore();
 
@@ -78,7 +79,7 @@ class Kids extends React.Component {
                 </Grid>
               );
             })}
-          {!kids.length && <p>loading</p>}
+          {!kids.length && <SVG src="../../../../assets/svg/ripple-lg.svg" alt="loader" />}
         </Grid>
         <KidsForm open={this.state.formOpen} onClose={this.closeModal} />
         <FAB add={this.addKid} />
@@ -88,3 +89,10 @@ class Kids extends React.Component {
 }
 
 export default Kids;
+
+const SVG = styled.img`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+`;
