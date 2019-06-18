@@ -1,8 +1,8 @@
-import * as functions from 'firebase-functions'
-import * as firebase from './utils/firebase';
-import '@firebase/firestore';
+import * as functions from 'firebase-functions';
+import admin from 'firebase-admin';
+admin.initializeApp();
 
-const db = firebase.firestore();
+const db = admin.firestore();
 
 export const helloWorld = functions.https.onRequest((request, response) => {
   response.send('Hello from Firebase2!');
