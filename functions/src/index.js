@@ -1,5 +1,7 @@
-import functions from 'firebase-functions';
-import firebase from './utils/firebase';
+import * as functions from 'firebase-functions'
+import * as firebase from './utils/firebase';
+import '@firebase/firestore';
+
 const db = firebase.firestore();
 
 export const helloWorld = functions.https.onRequest((request, response) => {

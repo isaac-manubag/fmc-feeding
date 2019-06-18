@@ -1,47 +1,33 @@
-'use strict';
+"use strict";
 
-/*eslint-disable*/
-
-Object.defineProperty(exports, '__esModule', {
-  value: true,
+Object.defineProperty(exports, "__esModule", {
+  value: true
 });
 exports.userCreated = exports.helloWorld = void 0;
 
-var _firebaseFunctions = _interopRequireDefault(require('firebase-functions'));
+var functions = _interopRequireWildcard(require("firebase-functions"));
 
-var _firebase = _interopRequireDefault(require('./utils/firebase'));
+var firebase = _interopRequireWildcard(require("./utils/firebase"));
 
-function _interopRequireDefault(obj) {
-  return obj && obj.__esModule ? obj : { default: obj };
-}
+require("@firebase/firestore");
 
-var db = _firebase.default.firestore();
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
 
-var helloWorld = _firebaseFunctions.default.https.onRequest(function(
-  request,
-  response,
-) {
+var db = firebase.firestore();
+var helloWorld = functions.https.onRequest(function (request, response) {
   response.send('Hello from Firebase2!');
 });
-
 exports.helloWorld = helloWorld;
-
-var userCreated = _firebaseFunctions.default.auth
-  .user()
-  .onCreate(function(user) {
-    console.log(user);
-    db.collection('users')
-      .add({
-        email: user.email,
-        displayName: user.displayName,
-      })
-      .then(function(docRef) {
-        console.log('Document : ', docRef);
-        return;
-      })
-      .catch(function(error) {
-        throw error;
-      });
+var userCreated = functions.auth.user().onCreate(function (user) {
+  console.log(user);
+  db.collection('users').add({
+    email: user.email,
+    displayName: user.displayName
+  }).then(function (docRef) {
+    console.log('Document : ', docRef);
+    return;
+  }).catch(function (error) {
+    throw error;
   });
-
+});
 exports.userCreated = userCreated;
