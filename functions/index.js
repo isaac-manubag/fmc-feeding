@@ -25,10 +25,10 @@ var userCreated = functions.auth.user().onCreate(function (user) {
   console.log(user);
   db.collection('users').add({
     email: user.email,
-    displayName: user.displayName
-  }).then(function (docRef) {
-    console.log('Document : ', docRef);
-    return;
+    displayName: user.displayName,
+    uid: user.uid,
+    photoURL: user.photoURL,
+    provider: user.providerData[0].providerId
   }).catch(function (error) {
     throw error;
   });

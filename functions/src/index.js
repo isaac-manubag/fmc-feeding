@@ -10,15 +10,13 @@ export const helloWorld = functions.https.onRequest((request, response) => {
 
 export const userCreated = functions.auth.user().onCreate(user => {
   console.log(user);
-
   db.collection('users')
     .add({
       email: user.email,
       displayName: user.displayName,
-    })
-    .then(docRef => {
-      console.log('Document : ', docRef);
-      return;
+      uid: user.uid,
+      photoURL: user.photoURL,
+      provider: user.providerData[0].providerId,
     })
     .catch(error => {
       throw error;
