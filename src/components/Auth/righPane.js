@@ -19,7 +19,7 @@ const HeaderContainer = styled.div`
 class Pane extends React.Component {
   uiConfig = {
     signInFlow: "popup",
-    signInSuccessUrl: "/about",
+    signInSuccessUrl: "/kids",
     signInOptions: [
       firebase.auth.GoogleAuthProvider.PROVIDER_ID,
       firebase.auth.FacebookAuthProvider.PROVIDER_ID
