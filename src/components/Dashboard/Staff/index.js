@@ -47,7 +47,7 @@ class Staff extends React.Component {
           {staff &&
             staff.map(item => {
               return (
-                <Grid item xs={12} sm={6} md={4} lg={2} key={item.id}>
+                <Grid item xs={12} sm={6} md={4} lg={2} key={item.uid}>
                   <StaffCard staff={item} />
                 </Grid>
               );

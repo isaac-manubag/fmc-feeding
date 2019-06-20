@@ -5,7 +5,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import PeopleIcon from '@material-ui/icons/People';
-import { Link } from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import firebase from '../../utils/firebase';
 import { logout } from '../../redux/actions/auth';
@@ -14,52 +14,40 @@ const MainListItems = ({ logout }) => {
   return (
     <div>
       <ListItem
-        component={() => (
-          <Link to='/kids' style={{ textDecoration: 'none', color: 'inherit' }}>
-            <ListItem button>
-              <ListItemIcon>
-                <DashboardIcon />
-              </ListItemIcon>
-              <ListItemText primary='Kids' />
-            </ListItem>
-          </Link>
-        )}
+        component={React.forwardRef((props, ref) => (
+          <RouterLink innerRef={ref} to='/kids' {...props} />
+        ))}
         button
-      />
+      >
+        <ListItemIcon>
+          <DashboardIcon />
+        </ListItemIcon>
+        <ListItemText primary='Kids' />
+      </ListItem>
 
       <ListItem
-        component={() => (
-          <Link
-            to='/staff'
-            style={{ textDecoration: 'none', color: 'inherit' }}
-          >
-            <ListItem button>
-              <ListItemIcon>
-                <ShoppingCartIcon />
-              </ListItemIcon>
-              <ListItemText primary='Staff' />
-            </ListItem>
-          </Link>
-        )}
+        component={React.forwardRef((props, ref) => (
+          <RouterLink innerRef={ref} to='/staff' {...props} />
+        ))}
         button
-      />
+      >
+        <ListItemIcon>
+          <ShoppingCartIcon />
+        </ListItemIcon>
+        <ListItemText primary='Staff' />
+      </ListItem>
 
       <ListItem
-        component={() => (
-          <Link
-            to='/schedule'
-            style={{ textDecoration: 'none', color: 'inherit' }}
-          >
-            <ListItem button>
-              <ListItemIcon>
-                <PeopleIcon />
-              </ListItemIcon>
-              <ListItemText primary='Schedule' />
-            </ListItem>
-          </Link>
-        )}
+        component={React.forwardRef((props, ref) => (
+          <RouterLink innerRef={ref} to='/schedule' {...props} />
+        ))}
         button
-      />
+      >
+        <ListItemIcon>
+          <PeopleIcon />
+        </ListItemIcon>
+        <ListItemText primary='Schedule' />
+      </ListItem>
 
       <ListItem
         button
