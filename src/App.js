@@ -5,6 +5,7 @@ import AuthLayout from "./components/hoc/AuthLayout";
 import Login from "./components/Auth";
 import Kids from "./components/Dashboard/Kids";
 import Staff from "./components/Dashboard/Staff";
+import Schedule from "./components/Dashboard/Schedule";
 import FirebaseAuthProvider from "./providers/FirebaseAuthProvider";
 import MuiThemeProvider from "@material-ui/core/styles/MuiThemeProvider";
 import { createMuiTheme } from "@material-ui/core/styles";
@@ -23,6 +24,7 @@ class App extends React.Component {
             <>
               <DashboardLayout path="/kids" exact component={Kids} />
               <DashboardLayout path="/staff" exact component={Staff} />
+              <DashboardLayout path="/schedule" exact component={Schedule} />
               <AuthLayout path="/" exact component={Login} />
             </>
           </Router>
