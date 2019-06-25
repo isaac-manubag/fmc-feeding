@@ -21,7 +21,6 @@ class Kids extends React.Component {
     db.collection("kids").onSnapshot(snapshot => {
       const changes = snapshot.docChanges();
       changes.forEach(change => {
-        console.log(change.type)
         if (change.type === "added") {
           this.setState({
             kids: [
