@@ -35,7 +35,7 @@ export default function({ open, onClose, deleting }) {
     image: "",
     fullName: "",
     nickName: "",
-    age: "",
+    dob: "",
     bio: ""
   });
 
@@ -46,7 +46,7 @@ export default function({ open, onClose, deleting }) {
       image: "",
       fullName: "",
       nickName: "",
-      age: "",
+      dob: "",
       bio: ""
     });
 
@@ -119,7 +119,7 @@ export default function({ open, onClose, deleting }) {
         initialValues={{
           fullName: "",
           nickName: "",
-          age: ""
+          dob: ""
         }}
         validate={values => {
           let errors = {};
@@ -129,15 +129,15 @@ export default function({ open, onClose, deleting }) {
           if (!values.nickName) {
             errors.nickName = "Nickname is required";
           }
-          if (!values.age) {
-            errors.age = "Age is required";
+          if (!values.dob) {
+            errors.dob = "DOB is required";
           }
 
           setKidProfile({
             ...kidProfile,
             fullName: values.fullName,
             nickName: values.nickName,
-            age: values.age,
+            dob: values.dob,
             bio: values.bio
           });
           return errors;
@@ -147,7 +147,7 @@ export default function({ open, onClose, deleting }) {
             .add({
               fullName: values.fullName,
               nickName: values.nickName,
-              age: values.age,
+              dob: values.dob,
               bio: values.bio,
               image: kidProfile.image
             })
@@ -196,13 +196,16 @@ export default function({ open, onClose, deleting }) {
               )}
               <TextField
                 margin="dense"
-                id="age"
-                label="Age"
-                type="number"
+                id="dob"
+                label="Date Of Birth"
+                type="date"
                 fullWidth
-                name="age"
+                name="dob"
                 required
                 onChange={handleChange}
+                InputLabelProps={{
+                  shrink: true,
+                }}
               />
               <TextField
                 margin="dense"

@@ -27,7 +27,7 @@ class Kids extends React.Component {
               {
                 fullName: change.doc.data().fullName,
                 nickName: change.doc.data().nickName,
-                age: change.doc.data().age,
+                dob: change.doc.data().dob,
                 bio: change.doc.data().bio,
                 image: change.doc.data().image,
                 id: change.doc.id
