@@ -6,7 +6,6 @@ import Dashboard from "../Dashboard";
 
 const DashboardLayout = ({ component: Component, ...rest }) => {
   const isAuthenticated = localStorage.getItem(constants.localStorage.isAuth);
-
   return (
     <Route
       {...rest}

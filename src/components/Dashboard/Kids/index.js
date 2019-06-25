@@ -13,13 +13,15 @@ class Kids extends React.Component {
   state = {
     kids: [],
     formOpen: false,
-    deleting: false
+    deleting: false,
+    updating: false,
   };
 
   componentDidMount() {
     db.collection("kids").onSnapshot(snapshot => {
       const changes = snapshot.docChanges();
       changes.forEach(change => {
+        console.log(change.type)
         if (change.type === "added") {
           this.setState({
             kids: [
@@ -38,6 +40,17 @@ class Kids extends React.Component {
           this.setState({
             kids: this.state.kids.filter(kid => kid.id !== change.doc.id)
           });
+        } else if (change.type === "modified") {
+          this.setState({
+            kids: this.state.kids.map(kid => (kid.id === change.doc.id ? {
+              fullName: change.doc.data().fullName,
+              nickName: change.doc.data().nickName,
+              dob: change.doc.data().dob,
+              bio: change.doc.data().bio,
+              image: change.doc.data().image,
+              id: change.doc.id
+            } : kid))
+          });
         }
       });
     });
@@ -49,29 +62,41 @@ class Kids extends React.Component {
   };
 
   deleteKid = documentID => {
+    const kid = this.state.kids.find(kid => kid.id === documentID);
+
     this.setState({
       formOpen: true,
-      deleting: documentID
+      deleting: kid
+    });
+  };
+  
+  updateKid = documentID => {
+    const kid = this.state.kids.find(kid => kid.id === documentID);
+
+    this.setState({
+      formOpen: true,
+      updating: kid
     });
   };
 
   closeModal = () => {
     this.setState({
       formOpen: false,
-      deleting: false
+      deleting: false,
+      updating: false,
     });
   };
 
   openModal = () => {
     this.setState({
       formOpen: true,
-      deleting: false
+      deleting: false,
+      updating: false,
     });
   };
 
   render() {
-    const { kids, deleting } = this.state;
-    console.log("sac");
+    const { kids, deleting, updating } = this.state;
     return (
       <React.Fragment>
         <Grid container spacing={3}>
@@ -79,7 +104,7 @@ class Kids extends React.Component {
             kids.map(item => {
               return (
                 <Grid item xs={12} sm={6} md={4} lg={2} key={item.id}>
-                  <KidsCard kid={item} deleteKid={this.deleteKid} />
+                  <KidsCard kid={item} deleteKid={this.deleteKid} updateKid={this.updateKid} />
                 </Grid>
               );
             })}
@@ -91,6 +116,7 @@ class Kids extends React.Component {
           open={this.state.formOpen}
           onClose={this.closeModal}
           deleting={deleting}
+          updating={updating}
         />
         <FAB add={this.addKid} />
       </React.Fragment>

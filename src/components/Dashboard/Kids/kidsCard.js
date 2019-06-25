@@ -26,7 +26,7 @@ const calcAge = dob => {
   return <span style={{fontSize: 14}}>{Math.abs(age_dt.getUTCFullYear() - 1970)}</span>;
 };
 
-export default function({ kid, deleteKid, preview }) {
+export default function({ kid, deleteKid, updateKid, preview }) {
   const classes = useStyles();
   return (
     <Card className={classes.card + ' ' + (preview ? classes.previewMode : '')}>
@@ -52,7 +52,7 @@ export default function({ kid, deleteKid, preview }) {
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Button size='small' color='primary'>
+        <Button size='small' color='primary' onClick={() => updateKid(kid.id)}>
           Learn More
         </Button>
         {!preview && (

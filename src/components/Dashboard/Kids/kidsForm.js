@@ -27,7 +27,7 @@ const useStyles = makeStyles(theme => ({
 
 const db = firebase.firestore();
 
-export default function({ open, onClose, deleting }) {
+export default function({ open, onClose, deleting, updating }) {
   const classes = useStyles();
   const [isUploading, setUploading] = useState(false);
   const [progress, setProgress] = useState(0);
@@ -38,6 +38,24 @@ export default function({ open, onClose, deleting }) {
     dob: "",
     bio: ""
   });
+
+  // this is not good practice lol
+  if (deleting) {
+    kidProfile.image = deleting.image;
+    kidProfile.fullName = deleting.fullName;
+    kidProfile.nickName = deleting.nickName;
+    kidProfile.dob = deleting.dob;
+    kidProfile.bio = deleting.bio;
+  }
+
+  // this is not good practice lol
+  if (updating) {
+    kidProfile.image = updating.image;
+    kidProfile.fullName = updating.fullName;
+    kidProfile.nickName = updating.nickName;
+    kidProfile.dob = updating.dob;
+    kidProfile.bio = updating.bio;
+  }
 
   const close = () => {
     setUploading(false);
@@ -99,7 +117,7 @@ export default function({ open, onClose, deleting }) {
             <Button
               onClick={() => {
                 db.collection("kids")
-                  .doc(deleting)
+                  .doc(deleting.id)
                   .delete();
 
                 close();
@@ -119,7 +137,8 @@ export default function({ open, onClose, deleting }) {
         initialValues={{
           fullName: "",
           nickName: "",
-          dob: ""
+          dob: "",
+          bio: "",
         }}
         validate={values => {
           let errors = {};
@@ -143,7 +162,27 @@ export default function({ open, onClose, deleting }) {
           return errors;
         }}
         onSubmit={(values, { setSubmitting }) => {
-          db.collection("kids")
+          console.log('sac1')
+          if (updating) {
+            console.log('sac12')
+            db.collection('kids')
+              .doc(updating.id)
+              .update({
+                fullName: values.fullName,
+                nickName: values.nickName,
+                dob: values.dob,
+                bio: values.bio,
+                image: kidProfile.image
+              })
+              .then(function(docRef) {
+                close();
+                setSubmitting(false);
+              })
+              .catch(function(error) {
+                setSubmitting(false);
+              });
+          } else {
+            db.collection("kids")
             .add({
               fullName: values.fullName,
               nickName: values.nickName,
@@ -159,11 +198,13 @@ export default function({ open, onClose, deleting }) {
             .catch(function(error) {
               setSubmitting(false);
             });
+          }
+          
         }}
       >
         {({ errors, touched, handleSubmit, handleChange, isSubmitting }) => (
           <section className={classes.flex1}>
-            <DialogTitle id="form-dialog-title">Add Kid</DialogTitle>
+            <DialogTitle id="form-dialog-title">{updating ? "Update" : "Add"} Kid</DialogTitle>
             <DialogContent>
               <TextField
                 autoFocus
@@ -207,6 +248,11 @@ export default function({ open, onClose, deleting }) {
                   shrink: true,
                 }}
               />
+              {errors.dob && touched.dob && (
+                <FormHelperText color="secondary">
+                  {errors.dob}
+                </FormHelperText>
+              )}
               <TextField
                 margin="dense"
                 id="bio"
