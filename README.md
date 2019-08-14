@@ -32,3 +32,10 @@ MIT
  - Firebase Functions
  - Firebase Firestore
  - Firebase Admin SDK
+
+ # Screenshots
+
+![Alt text](screenshots/login.png "Login")
+![Alt text](screenshots/dashboard.png "Dashboard")
+![Alt text](screenshots/add_kid.png "Add Kids")
+![Alt text](screenshots/calendar.png "Calendar")
