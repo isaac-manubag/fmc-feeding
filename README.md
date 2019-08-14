@@ -1,4 +1,5 @@
 # FMC Cebu Kids/Feeding Database
+[Open Website](https://fmc-cebu-feeding.firebaseapp.com/){:target="_blank"}
 
 This project aims to store the list of kids who has attended the FMC Cebu Feeding Program.
 Primary functions are:
